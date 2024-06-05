@@ -1,0 +1,54 @@
+EXP:
+  NAME: 'tokenization_amass_moyo'
+  OUT_DIR: 'output'
+  DEBUG: False
+  PRINT_ITER: 100
+  EVAL_ITER: 2500
+  TR_DISP_ITER: 1000
+  VAL_DISP_ITER: 50
+  EVAL_ONLY: False
+  EVAL_DS: 'test'
+  RESUME_PTH: ''
+  RESUME_TRAINING: False
+  LOG_TB: True
+DATA:
+  DATA_ROOT: 'tokenization_data'
+  DATASET: 'amass_pose'
+  TRAINLIST: 'CMU_KIT_BMLrub_DanceDB_BMLmovi_EyesJapan_BMLhandball_TotalCapture_EKUT_ACCAD_TCDHands_MPI-Limits_MOYO'
+  TRAIN_PART: '0.12_0.11_0.11_0.05_0.05_0.05_0.05_0.05_0.03_0.03_0.03_0.16_0.16'
+  VALLIST: 'HumanEva_HDM05_SFU_MPI-Mosh_MOYO'
+  TESTLIST: 'Transitions_SSM'
+  ADD_NOISE: True
+  BATCH_SIZE: 256
+  MASK_BODY_PARTS: False
+  NUM_WORKERS: 6
+OPT:
+  TOTAL_ITER: 200000
+  WARM_UP_ITER: 2
+  LR: 2e-4
+  GAMMA: 0.05
+  WEIGHT_DECAY: 0.00001
+LOSS:
+  POSE_LOSS_WT: 20.0
+  JNT_LOSS_WT: 100.0
+  MESH_LOSS_WT: 100.0
+  COMMIT_LOSS_WT: 1.0
+  LOSS_WT: 1.0
+  POSE_LOSS: 'l2'
+  MESH_LOSS: 'wt_l2'
+  JNT_LOSS: 'l2'
+  ONLY_VALID_JNT: True
+ARCH:
+  MODEL_NAME: 'vanilla'
+  CODE_DIM: [256]
+  NB_CODE: [2048]
+  ROT_TYPE: 'rot6d'
+  QUANTIZER: 'ema_reset'
+  SMPL_TYPE: 'smplh'
+  DOWN_T: 1
+  WIDTH: 512
+  DEPTH: 2
+  DILATION_RATE: 3
+  CB_SCALE_DOWN: 2
+  TOKEN_SIZE_MUL: 4
+  TOKEN_SIZE_DIV: 4

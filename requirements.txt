@@ -1,0 +1,30 @@
+numpy==1.23.1
+pytorch-lightning==1.8.1
+smplx==0.1.28
+pyrender==0.1.45
+opencv-python
+yacs
+scikit-image
+einops
+timm
+dill
+chumpy
+pandas
+
+# for tokenhmr training
+rich
+hydra-core
+hydra-submitit-launcher
+hydra-colorlog
+pyrootutils
+webdataset
+
+# additional pkgs
+transformers
+flatten_dict
+
+# for tokenization training
+git+https://github.com/nghorbani/body_visualizer
+
+# for detectron2
+setuptools==65.0.0
