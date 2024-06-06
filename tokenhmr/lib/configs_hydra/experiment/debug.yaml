@@ -1,0 +1,90 @@
+# @package _global_
+
+defaults:
+  - default.yaml
+
+task_name: debug
+exp_name: ID${cls_id}
+
+GENERAL:
+  TOTAL_STEPS: 1000_000
+  LOG_STEPS: 50
+  VAL_STEPS: 50
+  CHECKPOINT_STEPS: 50
+  CHECKPOINT_SAVE_TOP_K: 1
+  NUM_WORKERS: 6
+  PREFETCH_FACTOR: 2
+
+TRAIN:
+  LR: 5e-7
+  WEIGHT_DECAY: 1e-4
+  BATCH_SIZE: 8
+  LOSS_REDUCTION: mean
+  NUM_TRAIN_SAMPLES: 2
+  NUM_TEST_SAMPLES: 64
+  POSE_2D_NOISE_RATIO: 0.01
+  SMPL_PARAM_NOISE_RATIO: 0.005
+
+DATASETS:
+  DATASET_DIR: /is/cluster/fast/scratch/sdwivedi/datasets/hmr2_training_data 
+
+SMPL:
+  DATA_DIR: data/body_models 
+  MODEL_PATH: data/body_models/smpl
+  GENDER: neutral
+  NUM_BODY_JOINTS: 23
+  JOINT_REGRESSOR_EXTRA: data/body_models/SMPL_to_J19.pkl
+  MEAN_PARAMS: data/body_models/smpl_mean_params.npz
+
+trainer:
+  precision: 16
+  devices: 1
+  accelerator: gpu
+  num_nodes: 1
+  limit_val_batches: 5
+  sync_batchnorm: true
+  strategy: ddp
+
+MODEL:
+  VAL_LOSS_SAVE_THRESH: 5.0
+  FROZEN_LEARNED: False
+  LORA: False
+  LOOSE_SUP: True
+  LOOSE_WEIGHT: 0.05
+  WITH_MLM: False
+  TOKENIZER_CHECKPOINT_PATH: data/checkpoints/tokenizer.pth
+
+  IMAGE_SIZE: 256
+  IMAGE_MEAN: [0.485, 0.456, 0.406]
+  IMAGE_STD: [0.229, 0.224, 0.225]
+  BACKBONE:
+    TYPE: vit
+    PRETRAINED_WEIGHTS: data/checkpoints/hmr2_pretrained.pth
+  SMPL_HEAD:
+    TYPE: token
+    IN_CHANNELS: 2048
+    PREDICT_HAND: True
+    TOKENIZER: 
+      TOKEN_CODE_DIM: 256
+      TOKEN_NUM: 160
+      TOKEN_CLASS_NUM: 2048 
+      TOKENIZER_TYPE: 'Vanilla'
+    TRANSFORMER_DECODER:
+      depth: 6
+      heads: 8
+      mlp_dim: 1024
+      dim_head: 64
+      dropout: 0.0
+      emb_dropout: 0.0
+      norm: layer
+      context_dim: 1280
+
+LOSS_WEIGHTS:
+  KEYPOINTS_3D: 0.05
+  KEYPOINTS_2D: 0.01
+  VERTICES: 0.0
+  GLOBAL_ORIENT: 0.001
+  BODY_POSE: 0.001
+  BETAS: 0.0005
+  ADVERSARIAL: 0.0
+  TOKEN: 0.0
