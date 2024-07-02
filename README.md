@@ -46,6 +46,12 @@ Most 3D human pose estimation methods train on real images with 2D keypoints and
     <img src="assets/method.png">
 </div>
 
+## Updates
+
+* 02.07.2024: Release of improved TokenHMR model - better image alignment
+* 05.06.2024: Release of TokenHMR Code and Model - model used in paper
+
+
 ## Setup and Installation
 
 1. Clone the Repository
@@ -108,7 +114,17 @@ TokenHMR/
 
 ## Preparing Data for Basic Setup [required for demo]
 All the files are uploaded to [project webpage](https://tokenhmr.is.tue.mpg.de). Downloading works only after you register and agree to the licenses.
-Download the basic data (link [here]()) and unzip it and place it `./data`. This is required for running demo, training and evaluation. This includes [SMPL](https://smpl.is.tue.mpg.de/) and [SMPLH](https://github.com/vchoutas/smplx) body models, TokenHMR and Tokenization checkpoints and configs. Note that this does not include datasets. For training and evaluation datasets, refer to respective sections.
+Use the script `fetch_demo_data.sh` to download files needed for running demo. This includes [SMPL](https://smpl.is.tue.mpg.de/) and [SMPLH](https://github.com/vchoutas/smplx) body models, latest TokenHMR and Tokenization checkpoints. For training and evaluation, refer to respective sections.
+
+```shell
+bash ./fetch_demo_data.sh
+```
+
+PHALP needs SMPL neutral model for running video demo. Copy the model to appropriate location.
+
+```shell
+cp data/body_models/smpl/SMPL_NEUTRAL.pkl $HOME/.cache/phalp/3D/models/smpl/
+```
 
 ## Running TokenHMR Demo on Images
 Make sure to install [Detectron2](https://github.com/facebookresearch/detectron2) before running demo for images. Check the installation guide for more details.
@@ -118,7 +134,7 @@ python tokenhmr/demo.py \
     --img_folder demo_sample/images/ \
     --batch_size=1 \
     --full_frame \
-    --checkpoint data/checkpoints/tokenhmr_model.ckpt \
+    --checkpoint data/checkpoints/tokenhmr_model_latest.ckpt \
     --model_config data/checkpoints/model_config.yaml
 ```
 <table>
@@ -131,8 +147,6 @@ python tokenhmr/demo.py \
 </table>
 
 
-
-
 ## Running TokenHMR Demo on Videos
 Make sure to installed the [forked version](https://github.com/saidwivedi/PHALP) of the original ([PHALP, CVPR 2022](https://github.com/brjathu/PHALP)). Check the installation guide for more details.
 
@@ -140,7 +154,7 @@ Make sure to installed the [forked version](https://github.com/saidwivedi/PHALP)
 python tokenhmr/track.py \
     video.source=demo_sample/video/gymnasts.mp4 \
     render.colors=slahmr \
-    +checkpoint=data/checkpoints/tokenhmr_model.ckpt \
+    +checkpoint=data/checkpoints/tokenhmr_model_latest.ckpt \
     +model_config=data/checkpoints/model_config.yaml
 ```
 
@@ -197,13 +211,13 @@ TokenHMR/
 └── ...
 ```
 ### Training
-After training the tokenizer, we can train TokenHMR. If you want to skip the tokenization training, you can directly use the pretrained model provided in the checkpoint. With 4DHumans pretrained backbone, it training takes around 4 days on 4 A100 Nvidia GPUs. If you want to change any default settings, please update `tokenhmr/lib/configs_hydra/experiment/tokenhmr_release.yaml`.
+After training the tokenizer, we can train TokenHMR. If you want to skip the tokenization training, you can directly use the pretrained model provided in the checkpoint. With 4DHumans pretrained backbone (download model from official [repo](https://github.com/shubham-goel/4D-Humans)), it training takes around 4 days on 4 A100 Nvidia GPUs. If you want to change any default settings, please update `tokenhmr/lib/configs_hydra/experiment/tokenhmr_release.yaml`.
 ```shell
 python tokenhmr/train.py datasets=mix_all experiment=tokenhmr_release
 ``` 
 
 ### Evaluation
-To evaluate the model on 3DPW and EMDB, run this
+To evaluate the original model (used in the paper) on 3DPW and EMDB from [here](https://download.is.tue.mpg.de/download.php?domain=tokenhmr&sfile=tokenhmr_model.zip). Then run this
 
 ```shell
 python tokenhmr/eval.py  \
