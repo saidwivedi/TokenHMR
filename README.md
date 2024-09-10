@@ -46,9 +46,120 @@ Most 3D human pose estimation methods train on real images with 2D keypoints and
     <img src="assets/method.png">
 </div>
 
-## Updates
+## Model Zoo
 
-* 02.07.2024: Release of improved TokenHMR model - better image alignment
+<table style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr style="background-color: #f8f8f8;">
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">Model</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">Training Datasets</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">Comments</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">Tokenization</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; " rowspan="2">TALS Loss</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="3">3DPW</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" colspan="3">EMDB</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">ckpt</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center;" rowspan="2">config</th>
+    </tr>
+    <tr style="background-color: #f8f8f8;">
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">PVE</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">MPJPE</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">PA-MPJPE</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">PVE</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">MPJPE</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">PA-MPJPE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">TokenHMR-ITW</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">SD + ITW + BEDLAM</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Paper Version (Old environment)</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">84.6</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">71.0</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">44.3</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">109.4</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">91.7</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">55.6</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">-NA-</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">-NA-</td>
+    </tr>
+    <tr style="background-color: #f8f8f8;">
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">TokenHMR-ITW</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">SD + ITW + BEDLAM</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Release Version (latest environment)</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">84.8</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">72.0</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">45.5</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">110.0</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">91.9</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">56.4</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><a href="https://download.is.tue.mpg.de/download.php?domain=tokenhmr&sfile=tokenhmr_model.zip">ckpt</a></td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><a href="https://github.com/saidwivedi/TokenHMR/blob/main/tokenhmr/lib/configs_hydra/experiment/tokenhmr_release.yaml">config</a></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">TokenHMR-Demo<sup>#</sup></td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">SD + ITW + BEDLAM</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Trained longer (350k iter) for diverse poses</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">85.0</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">72.8</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">47.1</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">112.2</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">93.7</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; ">58.9</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><a href="https://download.is.tue.mpg.de/download.php?domain=tokenhmr&sfile=tokenhmr_model_latest.zip">ckpt</a></td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><a href="https://github.com/saidwivedi/TokenHMR/blob/main/tokenhmr/lib/configs_hydra/experiment/tokenhmr_release.yaml">config</a></td>
+    </tr>
+    <tr style="background-color: #f8f8f8;">
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">TokenHMR-BL</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">BEDLAM</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Paper Version (Old environment)</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">No<sup>†</sup></td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">86.0</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">70.5</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">43.8</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">104.2</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">88.1</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">49.8</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">-NA-</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">-NA-</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">TokenHMR-BL</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">BEDLAM</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Release Version (latest environment)</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Yes</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">No<sup>†</sup></td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">85.7</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">71.6</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">44.0</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">106.2</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">89.6</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">49.8</td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><a href="https://download.is.tue.mpg.de/download.php?domain=tokenhmr&sfile=tokenhmr_bedlam_only.ckpt">ckpt</a></td>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: center;"><a href="https://github.com/saidwivedi/TokenHMR/blob/main/tokenhmr/lib/configs_hydra/experiment/tokenhmr_release.yaml">config</a></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td style="border: 1px solid #ddd; padding: 8px; text-align: left;" colspan="13">
+          <sup>#</sup> Model used in demo. <br>
+          <sup>†</sup> Not needed since BEDLAM has ground-truth annotations.<br>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+## Updates 
+* 02.07.2024: Release of latest TokenHMR model which works for diverse poses
 * 05.06.2024: Release of TokenHMR Code and Model - model used in paper
 
 
